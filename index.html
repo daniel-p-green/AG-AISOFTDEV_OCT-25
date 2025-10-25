@@ -1,0 +1,980 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AI-Driven Software Engineering Program • Resource Hub</title>
+  <style>
+    :root {
+      color-scheme: light dark;
+      --page-bg: #0f172a;
+      --card-bg: rgba(15, 23, 42, 0.72);
+      --card-bg-light: rgba(248, 250, 252, 0.9);
+      --accent: #38bdf8;
+      --accent-strong: #0ea5e9;
+      --text-light: #e2e8f0;
+      --text-muted: rgba(226, 232, 240, 0.7);
+      --border: rgba(148, 163, 184, 0.2);
+      font-family: "Inter", "Segoe UI", -apple-system, BlinkMacSystemFont, sans-serif;
+    }
+
+    body {
+      margin: 0;
+      background: radial-gradient(120% 120% at 10% 0%, #1e293b 0%, var(--page-bg) 55%, #020617 100%);
+      color: var(--text-light);
+      line-height: 1.6;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    a:hover,
+    a:focus {
+      color: var(--accent);
+    }
+
+    .page {
+      max-width: 1240px;
+      margin: 0 auto;
+      padding: 64px 32px 96px;
+    }
+
+    header.hero {
+      background: linear-gradient(135deg, rgba(14, 165, 233, 0.2), rgba(99, 102, 241, 0.2));
+      border: 1px solid var(--border);
+      border-radius: 32px;
+      padding: 48px 56px;
+      display: grid;
+      gap: 24px;
+      box-shadow: 0 40px 120px rgba(15, 23, 42, 0.35);
+      backdrop-filter: blur(20px);
+    }
+
+    .hero h1 {
+      font-size: clamp(2.4rem, 2vw + 2rem, 3.4rem);
+      margin: 0;
+      letter-spacing: -0.03em;
+    }
+
+    .hero p {
+      max-width: 720px;
+      color: var(--text-muted);
+      margin: 0;
+      font-size: 1.05rem;
+    }
+
+    .hero-metrics {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 24px;
+      margin: 12px 0 0;
+    }
+
+    .hero-metrics span {
+      background: rgba(148, 163, 184, 0.1);
+      border: 1px solid var(--border);
+      border-radius: 999px;
+      padding: 10px 20px;
+      font-size: 0.95rem;
+    }
+
+    nav.quick-nav {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 16px;
+    }
+
+    nav.quick-nav a {
+      background: rgba(148, 163, 184, 0.08);
+      border: 1px solid transparent;
+      border-radius: 999px;
+      padding: 10px 22px;
+      font-size: 0.9rem;
+      transition: transform 0.2s ease, border-color 0.2s ease;
+    }
+
+    nav.quick-nav a:hover,
+    nav.quick-nav a:focus {
+      border-color: rgba(148, 163, 184, 0.35);
+      transform: translateY(-1px);
+    }
+
+    .primary-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-top: 8px;
+    }
+
+    .primary-actions a {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 12px 20px;
+      border-radius: 12px;
+      font-weight: 600;
+      font-size: 0.95rem;
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+    }
+
+    .primary-actions a.cta {
+      background: linear-gradient(135deg, var(--accent-strong), #6366f1);
+      color: #0b1120;
+      box-shadow: 0 12px 40px rgba(14, 165, 233, 0.35);
+    }
+
+    .primary-actions a.secondary {
+      background: rgba(148, 163, 184, 0.1);
+      border: 1px solid var(--border);
+      color: var(--text-light);
+    }
+
+    .primary-actions a:hover,
+    .primary-actions a:focus {
+      transform: translateY(-2px);
+    }
+
+    section {
+      margin-top: 72px;
+    }
+
+    section h2 {
+      font-size: clamp(1.6rem, 1vw + 1.6rem, 2rem);
+      margin-bottom: 16px;
+      letter-spacing: -0.01em;
+    }
+
+    section > p.section-intro {
+      color: var(--text-muted);
+      margin-top: -8px;
+      max-width: 720px;
+    }
+
+    .card-grid {
+      display: grid;
+      gap: 24px;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      margin-top: 32px;
+    }
+
+    .resource-card {
+      background: linear-gradient(140deg, rgba(15, 23, 42, 0.8), rgba(15, 23, 42, 0.5));
+      border: 1px solid rgba(148, 163, 184, 0.15);
+      border-radius: 24px;
+      padding: 28px;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+      transition: transform 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease;
+    }
+
+    .resource-card:hover,
+    .resource-card:focus-within {
+      transform: translateY(-4px);
+      border-color: rgba(148, 163, 184, 0.4);
+      box-shadow: 0 20px 60px rgba(15, 23, 42, 0.4);
+    }
+
+    .resource-card h3 {
+      margin: 0;
+      font-size: 1.2rem;
+    }
+
+    .resource-card p {
+      margin: 0;
+      color: var(--text-muted);
+      font-size: 0.95rem;
+    }
+
+    .resource-card .link-list {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+      display: grid;
+      gap: 10px;
+    }
+
+    .resource-card .link-list a {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 10px 14px;
+      border-radius: 12px;
+      background: rgba(148, 163, 184, 0.08);
+      font-size: 0.92rem;
+      border: 1px solid transparent;
+      transition: border-color 0.2s ease, color 0.2s ease;
+    }
+
+    .resource-card .link-list a:hover,
+    .resource-card .link-list a:focus {
+      border-color: rgba(148, 163, 184, 0.35);
+      color: var(--accent);
+    }
+
+    .resource-card .meta {
+      margin-top: auto;
+      font-size: 0.85rem;
+      color: rgba(226, 232, 240, 0.55);
+    }
+
+    .search-panel {
+      margin-top: 32px;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      max-width: 420px;
+    }
+
+    .search-panel label {
+      font-size: 0.9rem;
+      color: var(--text-muted);
+    }
+
+    .search-panel input[type="search"] {
+      padding: 14px 16px;
+      border-radius: 14px;
+      border: 1px solid rgba(148, 163, 184, 0.25);
+      background: rgba(15, 23, 42, 0.9);
+      color: var(--text-light);
+      font-size: 1rem;
+    }
+
+    .day-grid {
+      display: grid;
+      gap: 28px;
+      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+      margin-top: 40px;
+    }
+
+    .day-card header {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+
+    .day-number {
+      font-size: 0.9rem;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      background: rgba(148, 163, 184, 0.1);
+      padding: 6px 14px;
+      border-radius: 999px;
+    }
+
+    .day-card h3 {
+      margin: 0;
+      font-size: 1.25rem;
+    }
+
+    .day-card .summary {
+      color: var(--text-muted);
+      font-size: 0.96rem;
+      margin: 0;
+    }
+
+    .resource-columns {
+      display: grid;
+      gap: 18px;
+      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+      margin-top: 8px;
+    }
+
+    .resource-columns h4 {
+      margin: 0 0 6px;
+      font-size: 0.88rem;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: rgba(226, 232, 240, 0.7);
+    }
+
+    .resource-columns ul {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+      display: grid;
+      gap: 8px;
+    }
+
+    .resource-columns li a {
+      display: inline-flex;
+      gap: 8px;
+      align-items: center;
+      font-size: 0.9rem;
+      color: rgba(226, 232, 240, 0.9);
+      background: rgba(148, 163, 184, 0.08);
+      border-radius: 12px;
+      padding: 8px 12px;
+      border: 1px solid transparent;
+    }
+
+    .resource-columns li a:hover,
+    .resource-columns li a:focus {
+      border-color: rgba(148, 163, 184, 0.35);
+      color: var(--accent);
+    }
+
+    .tag-line {
+      display: inline-flex;
+      gap: 10px;
+      margin-top: 12px;
+      flex-wrap: wrap;
+    }
+
+    .tag-line span {
+      font-size: 0.78rem;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      background: rgba(56, 189, 248, 0.12);
+      color: rgba(125, 211, 252, 0.9);
+      border-radius: 999px;
+      padding: 6px 12px;
+    }
+
+    .highlight {
+      color: var(--accent);
+      font-weight: 600;
+    }
+
+    .hidden {
+      display: none !important;
+    }
+
+    footer {
+      margin-top: 96px;
+      text-align: center;
+      color: rgba(226, 232, 240, 0.6);
+      font-size: 0.9rem;
+    }
+
+    footer a {
+      color: rgba(125, 211, 252, 0.9);
+    }
+
+    @media (max-width: 720px) {
+      .page {
+        padding: 48px 20px 72px;
+      }
+
+      header.hero {
+        padding: 40px 28px;
+      }
+
+      .hero-metrics span {
+        width: 100%;
+        text-align: center;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="page">
+    <header class="hero">
+      <div>
+        <h1>AI-Driven Software Engineering Program</h1>
+        <p>
+          A single landing zone for every deck, lab, solution, guide, and utility in the 10-day Digital Ethos Academy immersion.
+          Launch resources instantly, stay oriented across the curriculum, and help learners move from planning to production with confidence.
+        </p>
+        <div class="hero-metrics">
+          <span>10 immersive days</span>
+          <span>16+ hands-on labs</span>
+          <span>8 decks &amp; instructor playbooks</span>
+          <span>Production-ready AI utilities</span>
+        </div>
+      </div>
+
+      <div>
+        <div class="primary-actions">
+          <a class="cta" href="README.md" target="_blank" rel="noopener">Read the Program Overview</a>
+          <a class="secondary" href="Daily%20agenda.ipynb" target="_blank" rel="noopener">View the Facilitator Agenda</a>
+        </div>
+        <nav class="quick-nav" aria-label="Jump to section">
+          <a href="#quick-start">Quick Start</a>
+          <a href="#curriculum">Daily Curriculum</a>
+          <a href="#supporting-materials">Supporting Materials</a>
+          <a href="#instructor-toolkit">Instructor Toolkit</a>
+          <a href="#engineering-stack">Engineering Stack</a>
+        </nav>
+        <div class="search-panel">
+          <label for="resource-search">Instantly filter resources</label>
+          <input id="resource-search" type="search" placeholder="Try “vision”, “ADR templates”, or “testing”" aria-describedby="search-hint">
+          <small id="search-hint" aria-live="polite">
+            Search looks across titles, tags, and descriptions. Clear the box to show everything again.
+          </small>
+        </div>
+      </div>
+    </header>
+
+    <section id="quick-start">
+      <h2>Quick Start</h2>
+      <p class="section-intro">
+        Begin with the master README, then follow the environment and deployment guides to get every learner productive within minutes.
+      </p>
+      <div class="card-grid">
+        <article class="resource-card" data-filter="overview readme orientation program outcomes structure agenda start here">
+          <h3>Program Overview</h3>
+          <p>Understand the learning arc, repository layout, and program outcomes before you dive in.</p>
+          <ul class="link-list">
+            <li><a href="README.md" target="_blank" rel="noopener">Open README.md</a></li>
+            <li><a href="WARP.md" target="_blank" rel="noopener">WARP Playbook</a></li>
+            <li><a href="GEMINI.md" target="_blank" rel="noopener">Gemini Copilot Guide</a></li>
+          </ul>
+          <div class="meta">Repository root</div>
+        </article>
+
+        <article class="resource-card" data-filter="setup installation environment python poetry requirements tooling prework">
+          <h3>Environment Setup</h3>
+          <p>Get laptops ready with Python, dependencies, and recommended tooling for the labs and utilities.</p>
+          <ul class="link-list">
+            <li><a href="Supporting%20Materials/Environment_Setup_Guide.md" target="_blank" rel="noopener">Environment Setup Guide</a></li>
+            <li><a href="Supporting%20Materials/Docker_Guide.md" target="_blank" rel="noopener">Docker Guide</a></li>
+            <li><a href="Supporting%20Materials/Deployment_Guide_Onboarding_Tool.md" target="_blank" rel="noopener">Deployment Guide: Onboarding Tool</a></li>
+          </ul>
+          <div class="meta">Supporting Materials</div>
+        </article>
+
+        <article class="resource-card" data-filter="artifacts documentation prd adr standards submissions instructions metadata">
+          <h3>Artifact Standards</h3>
+          <p>Set the expectations for PRDs, ADRs, evaluation reports, and every artifact learners will produce.</p>
+          <ul class="link-list">
+            <li><a href="Supporting%20Materials/Artifacts_Guide.md" target="_blank" rel="noopener">Artifacts Guide</a></li>
+            <li><a href="templates/prd_template.md" target="_blank" rel="noopener">PRD Template</a></li>
+            <li><a href="templates/adr_template.md" target="_blank" rel="noopener">ADR Template</a></li>
+          </ul>
+          <div class="meta">Supporting Materials &amp; Templates</div>
+        </article>
+
+        <article class="resource-card" data-filter="credentials api keys access providers anthropic openai gemini">
+          <h3>Secure API Access</h3>
+          <p>Walk learners through provisioning keys for every provider used across the labs and utilities.</p>
+          <ul class="link-list">
+            <li><a href="Supporting%20Materials/%F0%9F%94%91%20API%20Key%20Generation%20Guide%20for%20Labs.pdf" target="_blank" rel="noopener">API Key Generation Guide (PDF)</a></li>
+            <li><a href="Supporting%20Materials/Productionizing_Utils.md" target="_blank" rel="noopener">Productionizing the Utils Package</a></li>
+          </ul>
+          <div class="meta">Supporting Materials</div>
+        </article>
+      </div>
+    </section>
+
+    <section id="curriculum">
+      <h2>Daily Curriculum</h2>
+      <p class="section-intro">
+        Each day blends lecture, lab, and applied practice. Launch the student notebooks, slides, solutions, and TA guides straight from here.
+      </p>
+
+      <div class="day-grid">
+        <article class="resource-card day-card" data-filter="day 1 planning requirements discovery prd user stories alignment">
+          <header>
+            <span class="day-number">Day 01</span>
+            <h3>Planning &amp; Requirements</h3>
+          </header>
+          <p class="summary">Translate ambiguous requests into AI-assisted user stories and a polished PRD.</p>
+          <div class="tag-line">
+            <span>Product Thinking</span>
+            <span>Stakeholder Alignment</span>
+          </div>
+          <div class="resource-columns">
+            <div>
+              <h4>Labs</h4>
+              <ul>
+                <li><a href="Labs/Day_01_Planning_and_Requirements/D1_Lab1_AI_Powered_Requirements_User_Stories.ipynb" target="_blank" rel="noopener">AI-Powered Requirements &amp; User Stories</a></li>
+                <li><a href="Labs/Day_01_Planning_and_Requirements/D1_Lab2_Generating_a_Product_Requirements_Document_PRD.ipynb" target="_blank" rel="noopener">Generate a Product Requirements Document</a></li>
+                <li><a href="Labs/Day_01_Planning_and_Requirements/D1_SP_Agile_Planning_for_a_Library_App.ipynb" target="_blank" rel="noopener">Stretch: Agile Planning for a Library App</a></li>
+              </ul>
+            </div>
+            <div>
+              <h4>Support</h4>
+              <ul>
+                <li><a href="Labs/Day_01_Planning_and_Requirements/README_Day_1.md" target="_blank" rel="noopener">Lab README</a></li>
+                <li><a href="Solutions/Day_01_Planning_and_Requirements" target="_blank" rel="noopener">Reference Solutions</a></li>
+                <li><a href="slides/day1.html" target="_blank" rel="noopener">Lecture Slides</a></li>
+                <li><a href="TA/day01.md" target="_blank" rel="noopener">TA Playbook</a></li>
+              </ul>
+            </div>
+          </div>
+        </article>
+
+        <article class="resource-card day-card" data-filter="day 2 design architecture adr system design seed real time chat">
+          <header>
+            <span class="day-number">Day 02</span>
+            <h3>Design &amp; Architecture</h3>
+          </header>
+          <p class="summary">Model systems with AI, capture ADRs, and weigh trade-offs for real-time experiences.</p>
+          <div class="tag-line">
+            <span>LLM-Aided Design</span>
+            <span>Decision Records</span>
+          </div>
+          <div class="resource-columns">
+            <div>
+              <h4>Labs</h4>
+              <ul>
+                <li><a href="Labs/Day_02_Design_and_Architecture/D2_Lab1_AI_Generated_System_Design_Database_Seeding.ipynb" target="_blank" rel="noopener">AI-Generated System Design &amp; Seeding</a></li>
+                <li><a href="Labs/Day_02_Design_and_Architecture/D2_Lab2_Documenting_Key_Decisions_with_ADRs.ipynb" target="_blank" rel="noopener">Document Key Decisions with ADRs</a></li>
+                <li><a href="Labs/Day_02_Design_and_Architecture/D2_SP_Designing_a_Real_Time_Chat_Application.ipynb" target="_blank" rel="noopener">Stretch: Real-Time Chat Architecture</a></li>
+              </ul>
+            </div>
+            <div>
+              <h4>Support</h4>
+              <ul>
+                <li><a href="Labs/Day_02_Design_and_Architecture/README_Day_2.md" target="_blank" rel="noopener">Lab README</a></li>
+                <li><a href="Labs/Day_02_Design_and_Architecture/day2.html" target="_blank" rel="noopener">Lab Slides (HTML)</a></li>
+                <li><a href="Solutions/Day_02_Design_and_Architecture" target="_blank" rel="noopener">Reference Solutions</a></li>
+                <li><a href="slides/day2.html" target="_blank" rel="noopener">Lecture Slides</a></li>
+                <li><a href="TA/day02.md" target="_blank" rel="noopener">TA Playbook</a></li>
+              </ul>
+            </div>
+          </div>
+        </article>
+
+        <article class="resource-card day-card" data-filter="day 3 development coding backend refactoring documentation url shortener api">
+          <header>
+            <span class="day-number">Day 03</span>
+            <h3>Development &amp; Coding</h3>
+          </header>
+          <p class="summary">Pair program with LLMs to deliver APIs, refactor code, and keep documentation evergreen.</p>
+          <div class="tag-line">
+            <span>AI Pair Programming</span>
+            <span>Documentation</span>
+          </div>
+          <div class="resource-columns">
+            <div>
+              <h4>Labs</h4>
+              <ul>
+                <li><a href="Labs/Day_03_Development_and_Coding/D3_Lab1_AI_Driven_Backend_Development.ipynb" target="_blank" rel="noopener">AI-Driven Backend Development</a></li>
+                <li><a href="Labs/Day_03_Development_and_Coding/D3_Lab2_Refactoring_Documentation.ipynb" target="_blank" rel="noopener">Refactoring Documentation</a></li>
+                <li><a href="Labs/Day_03_Development_and_Coding/D3_SP_Building_a_URL_Shortener_API.ipynb" target="_blank" rel="noopener">Stretch: URL Shortener API</a></li>
+              </ul>
+            </div>
+            <div>
+              <h4>Support</h4>
+              <ul>
+                <li><a href="Labs/Day_03_Development_and_Coding/README_Day_3.md" target="_blank" rel="noopener">Lab README</a></li>
+                <li><a href="Solutions/Day_03_Development_and_Coding" target="_blank" rel="noopener">Reference Solutions</a></li>
+                <li><a href="slides/day3.html" target="_blank" rel="noopener">Lecture Slides</a></li>
+                <li><a href="TA/day03.md" target="_blank" rel="noopener">TA Playbook</a></li>
+              </ul>
+            </div>
+          </div>
+        </article>
+
+        <article class="resource-card day-card" data-filter="day 4 testing quality assurance ci cd automation debugging">
+          <header>
+            <span class="day-number">Day 04</span>
+            <h3>Testing &amp; Quality Assurance</h3>
+          </header>
+          <p class="summary">Automate tests with LLM assistance, harden CI/CD, and practice red/green debugging techniques.</p>
+          <div class="tag-line">
+            <span>Test Automation</span>
+            <span>CI/CD</span>
+          </div>
+          <div class="resource-columns">
+            <div>
+              <h4>Labs</h4>
+              <ul>
+                <li><a href="Labs/Day_04_Testing_and_Quality_Assurance/D4_Lab1_Automated_Testing_Quality_Assurance.ipynb" target="_blank" rel="noopener">Automated Testing &amp; QA</a></li>
+                <li><a href="Labs/Day_04_Testing_and_Quality_Assurance/D4_Lab2_Generating_a_CI_CD_Pipeline.ipynb" target="_blank" rel="noopener">Generate a CI/CD Pipeline</a></li>
+                <li><a href="Labs/Day_04_Testing_and_Quality_Assurance/D4_SP_Test_Driven_Debugging.ipynb" target="_blank" rel="noopener">Stretch: Test-Driven Debugging</a></li>
+              </ul>
+            </div>
+            <div>
+              <h4>Support</h4>
+              <ul>
+                <li><a href="Labs/Day_04_Testing_and_Quality_Assurance/README_Day_4.md" target="_blank" rel="noopener">Lab README</a></li>
+                <li><a href="Solutions/Day_04_Testing_and_Quality_Assurance" target="_blank" rel="noopener">Reference Solutions</a></li>
+                <li><a href="slides/day4.html" target="_blank" rel="noopener">Lecture Slides</a></li>
+                <li><a href="TA/day04.md" target="_blank" rel="noopener">TA Playbook</a></li>
+              </ul>
+            </div>
+          </div>
+        </article>
+
+        <article class="resource-card day-card" data-filter="day 5 advanced agents rag planning execute multi agent orchestration travel agent">
+          <header>
+            <span class="day-number">Day 05</span>
+            <h3>Advanced Agents &amp; RAG</h3>
+          </header>
+          <p class="summary">Build agentic workflows, plan-and-execute loops, and retrieval-augmented knowledge bases.</p>
+          <div class="tag-line">
+            <span>Agent Orchestration</span>
+            <span>Retrieval</span>
+          </div>
+          <div class="resource-columns">
+            <div>
+              <h4>Labs</h4>
+              <ul>
+                <li><a href="Labs/Day_05_Advanced_Agents_and_RAG/D5_Lab1_Tool_Using_Agents.ipynb" target="_blank" rel="noopener">Tool-Using Agents</a></li>
+                <li><a href="Labs/Day_05_Advanced_Agents_and_RAG/D5_Lab2_Plan_and_Execute_Multi_Agent_Systems.ipynb" target="_blank" rel="noopener">Plan &amp; Execute Multi-Agent Systems</a></li>
+                <li><a href="Labs/Day_05_Advanced_Agents_and_RAG/D5_SP_The_AI_Travel_Agent.ipynb" target="_blank" rel="noopener">Stretch: The AI Travel Agent</a></li>
+              </ul>
+            </div>
+            <div>
+              <h4>Support</h4>
+              <ul>
+                <li><a href="Labs/Day_05_Advanced_Agents_and_RAG/README_Day_5.md" target="_blank" rel="noopener">Lab README</a></li>
+                <li><a href="Solutions/Day_05_Advanced_Agents_and_RAG" target="_blank" rel="noopener">Reference Solutions</a></li>
+                <li><a href="slides/day5.html" target="_blank" rel="noopener">Lecture Slides</a></li>
+                <li><a href="TA/day05.md" target="_blank" rel="noopener">TA Playbook</a></li>
+              </ul>
+            </div>
+          </div>
+        </article>
+
+        <article class="resource-card day-card" data-filter="day 6 rag systems conversational agents docker compose evaluation knowledge graphs">
+          <header>
+            <span class="day-number">Day 06</span>
+            <h3>Building RAG Systems</h3>
+          </header>
+          <p class="summary">Ship production-ready retrieval pipelines and conversational agents backed by curated corpora.</p>
+          <div class="tag-line">
+            <span>RAG Pipelines</span>
+            <span>Conversational AI</span>
+          </div>
+          <div class="resource-columns">
+            <div>
+              <h4>Labs</h4>
+              <ul>
+                <li><a href="Labs/Day_06_Building_RAG_Systems/D6_Lab1_Building_RAG_Systems.ipynb" target="_blank" rel="noopener">Building RAG Systems</a></li>
+                <li><a href="Labs/Day_06_Building_RAG_Systems/D6_Lab2_Creating_a_Conversational_Multi_Agent_System.ipynb" target="_blank" rel="noopener">Conversational Multi-Agent System</a></li>
+                <li><a href="Labs/Day_06_Building_RAG_Systems/D6_SP_Building_a_Docker_Compose_Agent.ipynb" target="_blank" rel="noopener">Stretch: Docker Compose Agent</a></li>
+              </ul>
+            </div>
+            <div>
+              <h4>Support</h4>
+              <ul>
+                <li><a href="Labs/Day_06_Building_RAG_Systems/README_Day_6.md" target="_blank" rel="noopener">Lab README</a></li>
+                <li><a href="Solutions/Day_06_Building_RAG_Systems" target="_blank" rel="noopener">Reference Solutions</a></li>
+                <li><a href="slides/day6.html" target="_blank" rel="noopener">Lecture Slides</a></li>
+                <li><a href="TA/day06.md" target="_blank" rel="noopener">TA Playbook</a></li>
+              </ul>
+            </div>
+          </div>
+        </article>
+
+        <article class="resource-card day-card" data-filter="day 7 advanced agent workflows mcp model context protocol a2a interoperability integration">
+          <header>
+            <span class="day-number">Day 07</span>
+            <h3>Advanced Agent Workflows</h3>
+          </header>
+          <p class="summary">Harness Model Context Protocol (MCP) and Agent-to-Agent (A2A) patterns for interoperable systems.</p>
+          <div class="tag-line">
+            <span>MCP</span>
+            <span>A2A Protocols</span>
+          </div>
+          <div class="resource-columns">
+            <div>
+              <h4>Labs &amp; Notebooks</h4>
+              <ul>
+                <li><a href="Labs/Day_07_Advanced_Agent_Workflows/D7_Lab1_Advanced_Agent_Workflows_with_MCP.ipynb" target="_blank" rel="noopener">Advanced Agent Workflows with MCP</a></li>
+                <li><a href="Labs/Day_07_Advanced_Agent_Workflows/D7_Lab2_Agent_Interoperability_with_A2A_Protocol.ipynb" target="_blank" rel="noopener">Agent Interoperability with A2A</a></li>
+                <li><a href="Labs/Day_07_Advanced_Agent_Workflows/A2A.ipynb" target="_blank" rel="noopener">A2A Reference Notebook</a></li>
+                <li><a href="Labs/Day_07_Advanced_Agent_Workflows/MCP.ipynb" target="_blank" rel="noopener">MCP Reference Notebook</a></li>
+              </ul>
+            </div>
+            <div>
+              <h4>Support</h4>
+              <ul>
+                <li><a href="Labs/Day_07_Advanced_Agent_Workflows/README_Day_7.md" target="_blank" rel="noopener">Lab README</a></li>
+                <li><a href="Labs/Day_07_Advanced_Agent_Workflows/README.md" target="_blank" rel="noopener">Module Overview</a></li>
+                <li><a href="Solutions/Day_07_Advanced_Agent_Workflows" target="_blank" rel="noopener">Reference Solutions</a></li>
+                <li><a href="slides/day7.html" target="_blank" rel="noopener">Lecture Slides</a></li>
+                <li><a href="TA/day07.md" target="_blank" rel="noopener">TA Playbook</a></li>
+                <li><a href="Labs/Day_07_MCP_and_A2A/lib" target="_blank" rel="noopener">MCP/A2A Support Library</a></li>
+              </ul>
+            </div>
+          </div>
+        </article>
+
+        <article class="resource-card day-card" data-filter="day 8 vision evaluation red teaming ui ux weather app">
+          <header>
+            <span class="day-number">Day 08</span>
+            <h3>Vision &amp; Evaluation</h3>
+          </header>
+          <p class="summary">Blend multimodal perception with robust red-teaming and evaluation workflows.</p>
+          <div class="tag-line">
+            <span>Vision Agents</span>
+            <span>Evaluation</span>
+          </div>
+          <div class="resource-columns">
+            <div>
+              <h4>Labs</h4>
+              <ul>
+                <li><a href="Labs/Day_08_Vision_and_Evaluation/D8_Lab1_Vision_Enabled_UI_UX_Agents.ipynb" target="_blank" rel="noopener">Vision-Enabled UI/UX Agents</a></li>
+                <li><a href="Labs/Day_08_Vision_and_Evaluation/D8_Lab2_Evaluating_and_Red_Teaming_an_Agent.ipynb" target="_blank" rel="noopener">Evaluating &amp; Red-Teaming an Agent</a></li>
+                <li><a href="Labs/Day_08_Vision_and_Evaluation/D8_SP_Building_a_Weather_App_UI.ipynb" target="_blank" rel="noopener">Stretch: Weather App UI</a></li>
+              </ul>
+            </div>
+            <div>
+              <h4>Support</h4>
+              <ul>
+                <li><a href="Labs/Day_08_Vision_and_Evaluation/README_Day_8.md" target="_blank" rel="noopener">Lab README</a></li>
+                <li><a href="Solutions/Day_08_Vision_and_Evaluation" target="_blank" rel="noopener">Reference Solutions</a></li>
+                <li><a href="slides/day8.html" target="_blank" rel="noopener">Lecture Slides</a></li>
+                <li><a href="TA/day08.md" target="_blank" rel="noopener">TA Playbook</a></li>
+              </ul>
+            </div>
+          </div>
+        </article>
+
+        <article class="resource-card day-card" data-filter="day 9 day 10 capstone final project integration showcase deliverables">
+          <header>
+            <span class="day-number">Days 09 &amp; 10</span>
+            <h3>Capstone Delivery</h3>
+          </header>
+          <p class="summary">Guide teams through scoping, building, and presenting their capstone solution.</p>
+          <div class="tag-line">
+            <span>Integration</span>
+            <span>Showcase</span>
+          </div>
+          <div class="resource-columns">
+            <div>
+              <h4>Capstone Assets</h4>
+              <ul>
+                <li><a href="Labs/Days_9_and_10_Capstone/Capstone.md" target="_blank" rel="noopener">Capstone Brief</a></li>
+                <li><a href="Labs/Days_9_and_10_Capstone/Integration_README.md" target="_blank" rel="noopener">Integration Checklist</a></li>
+                <li><a href="TA/day09.md" target="_blank" rel="noopener">TA Day 09 Notes</a></li>
+                <li><a href="TA/day10.md" target="_blank" rel="noopener">TA Day 10 Notes</a></li>
+              </ul>
+            </div>
+            <div>
+              <h4>Showcase Support</h4>
+              <ul>
+                <li><a href="TA/README.md" target="_blank" rel="noopener">TA Overview &amp; Rubrics</a></li>
+                <li><a href="templates/prd_template.md" target="_blank" rel="noopener">Demo PRD Template</a></li>
+                <li><a href="templates/adr_template.md" target="_blank" rel="noopener">ADR Template</a></li>
+              </ul>
+            </div>
+          </div>
+        </article>
+      </div>
+
+      <article class="resource-card" data-filter="agent notebooks autogen crewai huggingface langchain utils">
+        <h3>Agent Platform Setups</h3>
+        <p class="summary">
+          Dedicated notebooks for onboarding teams to AutoGen, CrewAI, Hugging Face SmolAgents, and LangChain Agents.
+        </p>
+        <ul class="link-list">
+          <li><a href="Labs/Agent_notebooks/agents_setup_AutoGen.ipynb" target="_blank" rel="noopener">AutoGen Setup</a></li>
+          <li><a href="Labs/Agent_notebooks/agents_setup_CrewAI.ipynb" target="_blank" rel="noopener">CrewAI Setup</a></li>
+          <li><a href="Labs/Agent_notebooks/agents_setup_HuggingFace_SmolAgents.ipynb" target="_blank" rel="noopener">Hugging Face SmolAgents</a></li>
+          <li><a href="Labs/Agent_notebooks/agents_setup_Langchain_Agents.ipynb" target="_blank" rel="noopener">LangChain Agents</a></li>
+          <li><a href="Labs/Agent_notebooks/utils.py" target="_blank" rel="noopener">Shared Utilities</a></li>
+        </ul>
+        <div class="meta">Labs › Agent_notebooks</div>
+      </article>
+    </section>
+
+    <section id="supporting-materials">
+      <h2>Supporting Materials</h2>
+      <p class="section-intro">
+        Deep-dive guides, demos, and playbooks that extend the labs. Share them as pre-work, in-class references, or follow-up study.
+      </p>
+      <div class="card-grid">
+        <article class="resource-card" data-filter="artifacts guide documentation workflow handoff submission templates md">
+          <h3>Artifacts Guide</h3>
+          <p>Defines expectations for every artifact learners submit, plus tips on review and iteration loops.</p>
+          <ul class="link-list">
+            <li><a href="Supporting%20Materials/Artifacts_Guide.md" target="_blank" rel="noopener">Read Guide</a></li>
+          </ul>
+          <div class="meta">Supporting Materials/Artifacts_Guide.md</div>
+        </article>
+
+        <article class="resource-card" data-filter="deployment onboarding tool productization lifecycle release">
+          <h3>Onboarding Tool Deployment</h3>
+          <p>Step-by-step instructions for packaging and shipping the onboarding tool to staging or production.</p>
+          <ul class="link-list">
+            <li><a href="Supporting%20Materials/Deployment_Guide_Onboarding_Tool.md" target="_blank" rel="noopener">Open Deployment Guide</a></li>
+          </ul>
+          <div class="meta">Supporting Materials/Deployment_Guide_Onboarding_Tool.md</div>
+        </article>
+
+        <article class="resource-card" data-filter="docker containers compose registry reproducibility environment setup">
+          <h3>Docker Guide</h3>
+          <p>Run the labs and utility stack inside reliable containers with ready-to-go compose commands.</p>
+          <ul class="link-list">
+            <li><a href="Supporting%20Materials/Docker_Guide.md" target="_blank" rel="noopener">Open Docker Guide</a></li>
+          </ul>
+          <div class="meta">Supporting Materials/Docker_Guide.md</div>
+        </article>
+
+        <article class="resource-card" data-filter="environment laptop setup python tooling dependency management pip poetry uv">
+          <h3>Environment Setup Guide</h3>
+          <p>Align teams on Python versions, dependency managers, VS Code plugins, and shell preferences.</p>
+          <ul class="link-list">
+            <li><a href="Supporting%20Materials/Environment_Setup_Guide.md" target="_blank" rel="noopener">Open Setup Guide</a></li>
+          </ul>
+          <div class="meta">Supporting Materials/Environment_Setup_Guide.md</div>
+        </article>
+
+        <article class="resource-card" data-filter="react components local development frontend ux ui preview">
+          <h3>Viewing React Components Locally</h3>
+          <p>Ensure learners can preview React components from the labs without deploying full stacks.</p>
+          <ul class="link-list">
+            <li><a href="Supporting%20Materials/How_to_View_Your_React_Components_Locally.md" target="_blank" rel="noopener">Open React Viewing Guide</a></li>
+          </ul>
+          <div class="meta">Supporting Materials/How_to_View_Your_React_Components_Locally.md</div>
+        </article>
+
+        <article class="resource-card" data-filter="utils package productionizing best practices provider configuration scaling security">
+          <h3>Productionizing the Utils Package</h3>
+          <p>Hardening guidelines for the shared AI utilities, from rate limits to observability and safety rails.</p>
+          <ul class="link-list">
+            <li><a href="Supporting%20Materials/Productionizing_Utils.md" target="_blank" rel="noopener">Open Production Guide</a></li>
+          </ul>
+          <div class="meta">Supporting Materials/Productionizing_Utils.md</div>
+        </article>
+
+        <article class="resource-card" data-filter="starter utils demo notebook walkthrough">
+          <h3>Utils Demo Notebook</h3>
+          <p>Interactive notebook that showcases the helper library, provider wrappers, and artifact safeguards.</p>
+          <ul class="link-list">
+            <li><a href="Supporting%20Materials/Starter_Utils_Demo.ipynb" target="_blank" rel="noopener">Launch Demo Notebook</a></li>
+          </ul>
+          <div class="meta">Supporting Materials/Starter_Utils_Demo.ipynb</div>
+        </article>
+      </div>
+    </section>
+
+    <section id="instructor-toolkit">
+      <h2>Instructor Toolkit</h2>
+      <p class="section-intro">
+        Facilitation notes, grading rubrics, and daily TA checklists keep delivery tight and learner outcomes consistent.
+      </p>
+      <div class="card-grid">
+        <article class="resource-card" data-filter="agenda facilitator timing run of show schedule timing">
+          <h3>Facilitator Agenda</h3>
+          <p>Minute-by-minute breakdown for every session, including suggested demos and discussion prompts.</p>
+          <ul class="link-list">
+            <li><a href="Daily%20agenda.ipynb" target="_blank" rel="noopener">Open Daily Agenda</a></li>
+          </ul>
+          <div class="meta">Daily agenda.ipynb</div>
+        </article>
+
+        <article class="resource-card" data-filter="ta teaching assistant rubric checklist expectations day by day">
+          <h3>TA Playbooks</h3>
+          <p>Day-by-day guidance for teaching assistants with focus points, learner signals, and grading cues.</p>
+          <ul class="link-list">
+            <li><a href="TA/README.md" target="_blank" rel="noopener">TA Overview</a></li>
+            <li><a href="TA/day00-checklist.md" target="_blank" rel="noopener">Day 0 Onboarding Checklist</a></li>
+            <li><a href="TA/day01.md" target="_blank" rel="noopener">Day 01 Notes</a></li>
+            <li><a href="TA/day02.md" target="_blank" rel="noopener">Day 02 Notes</a></li>
+            <li><a href="TA/day03.md" target="_blank" rel="noopener">Day 03 Notes</a></li>
+            <li><a href="TA/day04.md" target="_blank" rel="noopener">Day 04 Notes</a></li>
+            <li><a href="TA/day05.md" target="_blank" rel="noopener">Day 05 Notes</a></li>
+            <li><a href="TA/day06.md" target="_blank" rel="noopener">Day 06 Notes</a></li>
+            <li><a href="TA/day07.md" target="_blank" rel="noopener">Day 07 Notes</a></li>
+            <li><a href="TA/day08.md" target="_blank" rel="noopener">Day 08 Notes</a></li>
+            <li><a href="TA/day09.md" target="_blank" rel="noopener">Day 09 Notes</a></li>
+            <li><a href="TA/day10.md" target="_blank" rel="noopener">Day 10 Notes</a></li>
+          </ul>
+          <div class="meta">TA/</div>
+        </article>
+
+        <article class="resource-card" data-filter="solutions reference answer key instructor support troubleshooting">
+          <h3>Instructor Reference Solutions</h3>
+          <p>Side-by-side notebooks for every lab to accelerate demos, grading, and remediation conversations.</p>
+          <ul class="link-list">
+            <li><a href="Solutions/Day_01_Planning_and_Requirements" target="_blank" rel="noopener">Day 01 Solutions</a></li>
+            <li><a href="Solutions/Day_02_Design_and_Architecture" target="_blank" rel="noopener">Day 02 Solutions</a></li>
+            <li><a href="Solutions/Day_03_Development_and_Coding" target="_blank" rel="noopener">Day 03 Solutions</a></li>
+            <li><a href="Solutions/Day_04_Testing_and_Quality_Assurance" target="_blank" rel="noopener">Day 04 Solutions</a></li>
+            <li><a href="Solutions/Day_05_Advanced_Agents_and_RAG" target="_blank" rel="noopener">Day 05 Solutions</a></li>
+            <li><a href="Solutions/Day_06_Building_RAG_Systems" target="_blank" rel="noopener">Day 06 Solutions</a></li>
+            <li><a href="Solutions/Day_07_Advanced_Agent_Workflows" target="_blank" rel="noopener">Day 07 Solutions</a></li>
+            <li><a href="Solutions/Day_08_Vision_and_Evaluation" target="_blank" rel="noopener">Day 08 Solutions</a></li>
+          </ul>
+          <div class="meta">Solutions/</div>
+        </article>
+
+        <article class="resource-card" data-filter="evaluation review codex artifacts feedback plan">
+          <h3>Program Review Planning</h3>
+          <p>Codify your post-cohort reflection with prompts for wins, risks, and iteration opportunities.</p>
+          <ul class="link-list">
+            <li><a href="_dg-review-plan.md" target="_blank" rel="noopener">Program Review Plan</a></li>
+          </ul>
+          <div class="meta">_dg-review-plan.md</div>
+        </article>
+      </div>
+    </section>
+
+    <section id="engineering-stack">
+      <h2>Engineering Stack</h2>
+      <p class="section-intro">
+        Source code, utilities, and tests that power the labs. Clone, extend, or productionize them for your own teams.
+      </p>
+      <div class="card-grid">
+        <article class="resource-card" data-filter="utils package providers anthropic openai gemini huggingface rate limiting logging helpers">
+          <h3>AI Utilities Package</h3>
+          <p>Provider-agnostic interfaces, safety rails, and helper functions used across every lab.</p>
+          <ul class="link-list">
+            <li><a href="utils" target="_blank" rel="noopener">Explore utils/ modules</a></li>
+            <li><a href="Supporting%20Materials/Productionizing_Utils.md" target="_blank" rel="noopener">Production Checklist</a></li>
+          </ul>
+          <div class="meta">utils/</div>
+        </article>
+
+        <article class="resource-card" data-filter="testing pytest unit tests async providers fixtures coverage">
+          <h3>Quality Harness</h3>
+          <p>Fast, well-annotated tests for synchronous and async scenarios to keep the utility layer reliable.</p>
+          <ul class="link-list">
+            <li><a href="tests" target="_blank" rel="noopener">Unit &amp; Integration Tests</a></li>
+            <li><a href="async_tests/test_async_llm.py" target="_blank" rel="noopener">Async Provider Tests</a></li>
+          </ul>
+          <div class="meta">tests/, async_tests/</div>
+        </article>
+
+        <article class="resource-card" data-filter="configuration pyproject requirements tooling lint formatting pytest">
+          <h3>Project Configuration</h3>
+          <p>Reference configs for pytest, dependency management, and formatter preferences.</p>
+          <ul class="link-list">
+            <li><a href="pyproject.toml" target="_blank" rel="noopener">pyproject.toml</a></li>
+            <li><a href="requirements.txt" target="_blank" rel="noopener">requirements.txt</a></li>
+            <li><a href="pytest.ini" target="_blank" rel="noopener">pytest.ini</a></li>
+          </ul>
+          <div class="meta">Repository root</div>
+        </article>
+
+        <article class="resource-card" data-filter="templates documentation prd adr evaluation rubric">
+          <h3>Reusable Templates</h3>
+          <p>Drop-in Markdown templates to help learners document requirements, decisions, and evaluations.</p>
+          <ul class="link-list">
+            <li><a href="templates/prd_template.md" target="_blank" rel="noopener">PRD Template</a></li>
+            <li><a href="templates/adr_template.md" target="_blank" rel="noopener">ADR Template</a></li>
+          </ul>
+          <div class="meta">templates/</div>
+        </article>
+      </div>
+    </section>
+
+    <footer>
+      Built for facilitators, TAs, and learners who want a frictionless launch into AI-assisted software delivery.
+      Questions or improvements? Open an issue or drop feedback alongside your next cohort retro.
+    </footer>
+  </div>
+
+  <script>
+    (function () {
+      const searchInput = document.getElementById('resource-search');
+      const filterTargets = document.querySelectorAll('[data-filter]');
+      const updateVisibility = (query) => {
+        const normalized = query.trim().toLowerCase();
+        filterTargets.forEach((target) => {
+          const text = target.dataset.filter;
+          if (!normalized || (text && text.toLowerCase().includes(normalized))) {
+            target.classList.remove('hidden');
+          } else {
+            target.classList.add('hidden');
+          }
+        });
+      };
+
+      searchInput.addEventListener('input', (event) => {
+        updateVisibility(event.target.value);
+      });
+    }());
+  </script>
+</body>
+</html>

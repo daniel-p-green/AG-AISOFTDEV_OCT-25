@@ -59,8 +59,8 @@ pytest.ini
 dockerfile
 Dockerfile
 
-# Root HTML entry that may be generated for demos
-index.html
+# Root HTML entries generated per cohort (keep directory-level ignores if needed)
+# (Intentionally allow `index.html` so the program hub stays versioned)
 
 # Type checker and linter caches
 .mypy_cache/
